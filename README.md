@@ -127,8 +127,86 @@ git
 从实际结果看，模型能够较好拟合 ROI 的整体变化趋势，尤其在中低 ROI 区间表现较为稳定；高 ROI 区间由于样本波动更大，预测误差相对更明显。
 
 ---
+## 八、可视化看板展示
 
-## 八、项目价值
+### 1. 广告投放总览看板
+
+![广告投放总览看板](figures/dashboard_summary.png)
+
+该总览看板用于快速展示广告投放的核心业务指标和主要分析结论，包括：
+
+- **KPI Summary**：展示总消耗、总收入、整体 ROI、整体 CPA、整体 CTR、整体 CVR 等关键指标，用于快速评估整体投放表现。
+- **Platform ROI Comparison**：对比不同广告平台的 ROI 表现，用于判断预算应优先向哪些平台倾斜。
+- **Platform CPA Comparison**：对比不同平台的获客成本，识别成本较高的平台。
+- **Creative Conversion Rate**：分析不同素材形式的转化率差异，评估素材效果。
+- **Audience Conversion Efficiency**：分析不同目标人群的转化率差异，识别人群质量。
+- **High-Cost Low-ROI Campaigns**：识别高消耗但低回报的广告计划，用于后续优化治理。
+
+---
+
+### 2. 平台效果分析
+
+![平台效果分析](figures/platform_performance.png)
+
+该图主要从平台维度分析广告投放效果，包括：
+
+- **ROI by Platform**：比较不同平台的投入产出比，判断高回报平台。
+- **CPA by Platform**：比较不同平台的单次转化成本，判断高成本平台。
+
+通过平台效果分析，可以进一步支持预算分配优化，例如优先增加高 ROI、低 CPA 平台的投放预算，控制低效平台成本。
+
+---
+
+### 3. 素材与人群效果分析
+
+![素材与人群效果分析](figures/creative_audience_analysis.png)
+
+该图从素材和人群两个维度分析广告投放表现：
+
+- **ROI by Creative Type**：对比不同素材类型的 ROI，判断哪类素材更适合放量。
+- **ROI by Audience**：对比不同目标人群的 ROI，识别高质量受众群体。
+
+通过该分析可以支持素材优化和人群策略优化，例如优先使用高 ROI 素材形式，并对高转化质量人群加大预算投入。
+
+---
+
+### 4. 高消耗低回报广告计划识别
+
+![高消耗低回报广告计划识别](figures/problem_campaigns.png)
+
+该图用于识别投放中的问题计划：
+
+- **柱状图**表示广告计划的消耗成本（Cost）
+- **折线图**表示广告计划的 ROI
+
+通过同时观察成本和 ROI，可以快速定位“高消耗、低回报”的低效计划，并作为优先优化对象。  
+这类计划通常需要重点排查以下问题：
+
+- 素材疲劳或素材吸引力不足
+- 目标人群匹配度较低
+- 平台投放策略不合理
+- 出价或预算设置不合理
+
+---
+
+## 业务结论与优化建议
+
+基于以上可视化分析结果，可以从以下几个方向进行广告投放优化：
+
+### 1. 平台预算优化
+优先向高 ROI、低 CPA 的平台倾斜预算，降低低效平台预算占比，提高整体投放回报率。
+
+### 2. 素材策略优化
+优先使用转化效率和 ROI 更高的素材类型进行放量，同时定期更新低表现素材，减少素材疲劳带来的效果下降。
+
+### 3. 人群策略优化
+针对高 ROI、高转化率人群加大投放力度；对于低表现人群，应优化定向策略或控制预算投入。
+
+### 4. 低效计划治理
+对高消耗低 ROI 计划建立定期复盘机制，重点检查素材、受众、出价和投放平台设置，持续提升整体投放效率。
+
+
+## 九、项目价值
 本项目的价值不在于证明真实业务落地结果，而在于完整演练了广告投放分析中较为核心的一套方法流程，包括：
 
 - 数据生成与结构设计
@@ -144,7 +222,7 @@ git
 
 ---
 
-## 九、技术栈
+## 十、技术栈
 - Python
 - Pandas
 - NumPy
@@ -155,23 +233,30 @@ git
 
 ---
 
-## 十、项目结构
+## 十一、项目结构
 ```text
 ad_campaign_analysis/
 ├── data/
-│   ├── raw/
-│   └── clean/
+│   ├── raw/                      # 原始模拟数据
+│   └── clean/                    # 清洗后数据与汇总结果
 ├── figures/
+│   ├── dashboard_summary.png     # 广告投放总览看板
+│   ├── platform_performance.png  # 平台效果分析
+│   ├── creative_audience_analysis.png
+│   ├── problem_campaigns.png
 │   ├── platform_roi.png
 │   ├── platform_cpa.png
 │   ├── cvr_by_creative_type.png
 │   ├── cvr_by_audience.png
 │   ├── high_cost_low_roi_campaigns.png
 │   ├── roi_prediction_scatter.png
-│   ├── roi_feature_importance.png
-│   └── dashboard_summary.png
+│   └── roi_feature_importance.png
 ├── notebook/
 │   └── ad_campaign_analysis.ipynb
+├── sql/
+│   └── analysis.sql
+├── .gitattributes
+├── .gitignore
 ├── README.md
 └── requirements.txt
 ```
